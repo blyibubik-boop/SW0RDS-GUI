@@ -546,12 +546,12 @@ LMG2L["Frame_f"]["BorderColor3"] = Color3.fromRGB(100, 100, 100)
 
 LMG2L["TextLabel_10"] = Instance.new("TextLabel", LMG2L["Frame_2"])
 LMG2L["TextLabel_10"]["BorderSizePixel"] = 0
-LMG2L["TextLabel_10"]["TextSize"] = 10
+LMG2L["TextLabel_10"]["TextSize"] = 9.5
 LMG2L["TextLabel_10"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
 LMG2L["TextLabel_10"]["BackgroundTransparency"] = 1
 LMG2L["TextLabel_10"]["Size"] = UDim2.new(0, 144, 0, 28)
 LMG2L["TextLabel_10"]["Text"] = "[+] SW0RDS What the helly boi 67"
-LMG2L["TextLabel_10"]["Position"] = UDim2.new(0, 225, 0, 292)
+LMG2L["TextLabel_10"]["Position"] = UDim2.new(0, 222, 0, 292)
 
 LMG2L["TextButton_11"] = Instance.new("TextButton", LMG2L["Frame_2"])
 LMG2L["TextButton_11"]["BorderSizePixel"] = 2
