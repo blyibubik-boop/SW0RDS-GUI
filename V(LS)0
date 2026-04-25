@@ -1,0 +1,344 @@
+-- SW0RDS Loadstring Executor - Universal Hub Edition
+-- Same UI style, executes loadstring() scripts instead of require()
+-- Includes: Infinite Yield, Universal Hub, Owl Hub, Speed Hub X, HoHo Hub, Vynixius, and more
+
+-- Create GUI
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
+screenGui.ResetOnSpawn = false
+screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+-- Main Frame
+local mainFrame = Instance.new("Frame", screenGui)
+mainFrame.BorderSizePixel = 0
+mainFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+mainFrame.Size = UDim2.new(0, 722, 0, 430)
+mainFrame.Position = UDim2.new(0.5, -361, 0.5, -215)
+
+local corner = Instance.new("UICorner", mainFrame)
+corner.CornerRadius = UDim.new(0, 8)
+local stroke = Instance.new("UIStroke", mainFrame)
+
+-- Title Bar
+local titleBar = Instance.new("Frame", mainFrame)
+titleBar.BorderSizePixel = 0
+titleBar.BackgroundColor3 = Color3.fromRGB(217, 217, 217)
+titleBar.Size = UDim2.new(1, 0, 0, 30)
+titleBar.Position = UDim2.new(0, 0, 0, 0)
+
+local logo = Instance.new("ImageLabel", titleBar)
+logo.BorderSizePixel = 0
+logo.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+logo.Image = "rbxassetid://126876652299043"
+logo.Size = UDim2.new(0, 24, 0, 24)
+logo.Position = UDim2.new(0, 6, 0, 3)
+logo.BackgroundTransparency = 1
+
+local titleText = Instance.new("TextLabel", titleBar)
+titleText.BorderSizePixel = 0
+titleText.TextSize = 12
+titleText.BackgroundTransparency = 1
+titleText.Size = UDim2.new(0.6, 0, 1, 0)
+titleText.Position = UDim2.new(0, 35, 0, 0)
+titleText.Text = "SW0RDS - Loadstring Executor"
+titleText.TextXAlignment = Enum.TextXAlignment.Left
+titleText.TextColor3 = Color3.fromRGB(0, 0, 0)
+titleText.Font = Enum.Font.GothamBold
+
+-- Window Controls
+local closeBtn = Instance.new("TextButton", titleBar)
+closeBtn.BorderSizePixel = 0
+closeBtn.TextSize = 16
+closeBtn.BackgroundTransparency = 1
+closeBtn.Size = UDim2.new(0, 30, 1, 0)
+closeBtn.Position = UDim2.new(1, -30, 0, 0)
+closeBtn.Text = "X"
+closeBtn.TextColor3 = Color3.fromRGB(255, 0, 0)
+closeBtn.MouseButton1Click:Connect(function()
+    screenGui:Destroy()
+end)
+
+local minBtn = Instance.new("TextButton", titleBar)
+minBtn.BorderSizePixel = 0
+minBtn.TextSize = 20
+minBtn.BackgroundTransparency = 1
+minBtn.Size = UDim2.new(0, 30, 1, 0)
+minBtn.Position = UDim2.new(1, -60, 0, 0)
+minBtn.Text = "_"
+minBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
+minBtn.MouseButton1Click:Connect(function()
+    mainFrame.Visible = not mainFrame.Visible
+end)
+
+-- Script Editor
+local scriptBox = Instance.new("TextBox", mainFrame)
+scriptBox.BorderSizePixel = 2
+scriptBox.TextSize = 13
+scriptBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+scriptBox.Size = UDim2.new(0, 402, 0, 222)
+scriptBox.Position = UDim2.new(0, 34, 0, 66)
+scriptBox.BorderColor3 = Color3.fromRGB(100, 100, 100)
+scriptBox.Text = ""
+scriptBox.MultiLine = true
+scriptBox.ClearTextOnFocus = false
+scriptBox.TextWrapped = true
+scriptBox.TextXAlignment = Enum.TextXAlignment.Left
+scriptBox.TextYAlignment = Enum.TextYAlignment.Top
+scriptBox.PlaceholderText = "Paste your loadstring() script here or click a button below..."
+
+-- Scripts List Frame
+local scriptsFrame = Instance.new("Frame", mainFrame)
+scriptsFrame.BorderSizePixel = 2
+scriptsFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+scriptsFrame.Size = UDim2.new(0, 218, 0, 356)
+scriptsFrame.Position = UDim2.new(0, 464, 0, 66)
+scriptsFrame.BorderColor3 = Color3.fromRGB(100, 100, 100)
+scriptsFrame.Name = "ScriptsFrame"
+
+local scriptsScroll = Instance.new("ScrollingFrame", scriptsFrame)
+scriptsScroll.BackgroundTransparency = 1
+scriptsScroll.Size = UDim2.new(1, -10, 1, -10)
+scriptsScroll.Position = UDim2.new(0, 5, 0, 5)
+scriptsScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+scriptsScroll.ScrollBarThickness = 6
+
+local scriptListLayout = Instance.new("UIListLayout", scriptsScroll)
+scriptListLayout.Padding = UDim.new(0, 6)
+scriptListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+-- ==================== LOADSTRING SCRIPTS ====================
+-- Universal Hubs & Admin Scripts (all using loadstring)
+local loadstringScripts = {
+    -- Admin Scripts
+    ["Infinite Yield"] = [[loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()]],
+    ["CMD-X Admin"] = [[loadstring(game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/Source", true))()]],
+    ["Fates Admin"] = [[loadstring(game:HttpGet("https://raw.githubusercontent.com/fatesc/fates-admin/main/main.lua"))()]],
+    ["Nameless Admin"] = [[loadstring(game:HttpGet("https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source"))();]],
+    ["Legacy Admin V2"] = [[loadstring(game:HttpGet('https://raw.githubusercontent.com/leg1337/legadmv2/main/legadminv2.lua'))()]],
+    ["Homebrew Admin"] = [[loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Syntaxx64/HomebrewAdmin/master/Main"))()]],
+    
+    -- Universal Hubs
+    ["Universal Hub"] = [[loadstring(game:HttpGet("https://raw.githubusercontent.com/KienPC1234/Universal-Hub/main/main.lua"))()]],
+    ["Universal Hub (Secure)"] = [[_G.SecureMode=true loadstring(game:HttpGet("https://raw.githubusercontent.com/KienPC1234/Universal-Hub/main/main.lua"))()]],
+    
+    -- Game-Specific Hubs
+    ["HoHo Hub (Blox Fruits)"] = [[loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/hohohub.txt"))()]],
+    ["Mukuro Hub (Blox Fruits)"] = [[loadstring(game:HttpGet("https://raw.githubusercontent.com/MukuroHub/BloxFruits/main/Script.lua"))()]],
+    ["HoHo Hub (General)"] = [[loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()]],
+    ["Owl Hub (Arsenal)"] = [[loadstring(game:HttpGet("https://raw.githubusercontent.com/CriShoux/OwlHub/master/OwlHub.txt"))()]],
+    ["Vynixius (Multi-Game)"] = [[loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Vynixius/main/Piggy/Loader.lua"))()]],
+    ["Speed Hub X"] = [[loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Script-Games/main/Anime%20Vanguards.lua"))()]],
+    ["AtherHub"] = [[loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/2529a5f9dfddd5523ca4e22f21cceffa.lua"))()]],
+    ["VizugeHUB"] = [[loadstring(game:HttpGet("https://api.junkie-development.de/api/v1/luascripts/public/001cce25ef51a49a0dbe80b99ee7f1d1f9e355b847b6357261033b3b4ea8758a/download"))()]],
+    ["Solix Hub"] = [[loadstring(game:HttpGet("https://raw.githubusercontent.com/debunked69/Solixreworkkeysystem/refs/heads/main/solix%20new%20keyui.lua"))()]],
+    ["BuangHub"] = [[loadstring(game:HttpGet('https://raw.githubusercontent.com/buang5516/buanghub/main/BUANGHUB.lua'))()]],
+    
+    -- Utility
+    ["Universal Module"] = [[local utility = loadstring(game:HttpGet("https://raw.githubusercontent.com/ShydeDev/Roblox-Universal-Exploiting-Module/refs/heads/main/universalmodule.luau"))()]],
+}
+
+-- Create buttons
+local buttonCount = 0
+for scriptName, scriptCode in pairs(loadstringScripts) do
+    local btn = Instance.new("TextButton", scriptsScroll)
+    btn.Name = "ScriptButton_" .. scriptName
+    btn.BackgroundColor3 = Color3.fromRGB(217, 217, 217)
+    btn.BorderSizePixel = 1
+    btn.BorderColor3 = Color3.fromRGB(100, 100, 100)
+    btn.Size = UDim2.new(1, -10, 0, 36)
+    btn.Text = scriptName
+    btn.TextSize = 12
+    btn.TextColor3 = Color3.new(0, 0, 0)
+    btn.TextWrapped = true
+    
+    btn.MouseButton1Click:Connect(function()
+        scriptBox.Text = scriptCode
+    end)
+    buttonCount = buttonCount + 1
+end
+
+scriptsScroll.CanvasSize = UDim2.new(0, 0, 0, buttonCount * 42 + 10)
+
+-- Control Buttons
+local injectBtn = Instance.new("TextButton", mainFrame)
+injectBtn.TextStrokeTransparency = 0.8
+injectBtn.BorderSizePixel = 2
+injectBtn.TextSize = 15
+injectBtn.BackgroundColor3 = Color3.fromRGB(217, 217, 217)
+injectBtn.Size = UDim2.new(0, 118, 0, 40)
+injectBtn.BorderColor3 = Color3.fromRGB(100, 100, 100)
+injectBtn.Text = "Inject"
+injectBtn.Position = UDim2.new(0, 34, 0, 384)
+
+local clearBtn = Instance.new("TextButton", mainFrame)
+clearBtn.TextStrokeTransparency = 0.8
+clearBtn.BorderSizePixel = 2
+clearBtn.TextSize = 15
+clearBtn.BackgroundColor3 = Color3.fromRGB(217, 217, 217)
+clearBtn.Size = UDim2.new(0, 118, 0, 38)
+clearBtn.BorderColor3 = Color3.fromRGB(100, 100, 100)
+clearBtn.Text = "Clear"
+clearBtn.Position = UDim2.new(0, 34, 0, 340)
+
+local executeBtn = Instance.new("TextButton", mainFrame)
+executeBtn.TextStrokeTransparency = 0.8
+executeBtn.BorderSizePixel = 2
+executeBtn.TextSize = 15
+executeBtn.BackgroundColor3 = Color3.fromRGB(217, 217, 217)
+executeBtn.Size = UDim2.new(0, 118, 0, 38)
+executeBtn.BorderColor3 = Color3.fromRGB(100, 100, 100)
+executeBtn.Text = "Execute"
+executeBtn.Position = UDim2.new(0, 34, 0, 296)
+
+-- Output Frame
+local outputFrame = Instance.new("Frame", mainFrame)
+outputFrame.BorderSizePixel = 2
+outputFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+outputFrame.Size = UDim2.new(0, 276, 0, 126)
+outputFrame.Position = UDim2.new(0, 160, 0, 296)
+outputFrame.BorderColor3 = Color3.fromRGB(100, 100, 100)
+
+local outputLabel = Instance.new("TextLabel", outputFrame)
+outputLabel.BorderSizePixel = 0
+outputLabel.TextSize = 10
+outputLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+outputLabel.BackgroundTransparency = 1
+outputLabel.Size = UDim2.new(1, -10, 1, -10)
+outputLabel.Position = UDim2.new(0, 5, 0, 5)
+outputLabel.Text = "[Output] SW0RDS Loadstring Executor ready."
+outputLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+outputLabel.TextXAlignment = Enum.TextXAlignment.Left
+outputLabel.TextYAlignment = Enum.TextYAlignment.Top
+outputLabel.TextWrapped = true
+
+-- Footer Buttons
+local footerBtn1 = Instance.new("TextButton", mainFrame)
+footerBtn1.BorderSizePixel = 2
+footerBtn1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+footerBtn1.Size = UDim2.new(0, 54, 0, 24)
+footerBtn1.Text = "loadstring"
+footerBtn1.Position = UDim2.new(0, 34, 0, 40)
+
+local footerBtn2 = Instance.new("TextButton", mainFrame)
+footerBtn2.BorderSizePixel = 2
+footerBtn2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+footerBtn2.Size = UDim2.new(0, 90, 0, 24)
+footerBtn2.Text = "by SW0RDS"
+footerBtn2.Position = UDim2.new(0, 92, 0, 40)
+
+-- Dragging functionality
+local UserInputService = game:GetService("UserInputService")
+local dragging = false
+local dragInput, dragStart, startPos
+
+local function updateInput(input)
+    local delta = input.Position - dragStart
+    mainFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+end
+
+mainFrame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = mainFrame.Position
+
+        local connection
+        connection = input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+                connection:Disconnect()
+            end
+        end)
+    end
+end)
+
+mainFrame.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        dragInput = input
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if dragging and (input == dragInput) then
+        updateInput(input)
+    end
+end)
+
+-- Button Functions
+local function updateOutput(text, isError)
+    outputLabel.Text = text
+    if isError then
+        outputLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+    else
+        outputLabel.TextColor3 = Color3.fromRGB(0, 150, 0)
+    end
+    task.wait(3)
+    outputLabel.Text = "[Output] SW0RDS Loadstring Executor ready."
+    outputLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+end
+
+clearBtn.MouseButton1Click:Connect(function()
+    scriptBox.Text = ""
+    updateOutput("Script cleared", false)
+end)
+
+executeBtn.MouseButton1Click:Connect(function()
+    local scriptText = scriptBox.Text
+    if scriptText == "" then
+        updateOutput("Error: No script entered!", true)
+        return
+    end
+    
+    updateOutput("Executing script...", false)
+    
+    local success, err = pcall(function()
+        -- Check if it's a loadstring or raw script
+        if scriptText:match("loadstring") then
+            -- Execute loadstring directly
+            local func = loadstring(scriptText)
+            if func then
+                func()
+            else
+                error("Invalid loadstring syntax")
+            end
+        else
+            -- Execute as normal Lua
+            local func = loadstring(scriptText)
+            if func then
+                func()
+            else
+                error("Invalid script syntax")
+            end
+        end
+    end)
+    
+    if success then
+        updateOutput("Script executed successfully!", false)
+    else
+        updateOutput("Error: " .. tostring(err), true)
+    end
+end)
+
+injectBtn.MouseButton1Click:Connect(function()
+    updateOutput("Injector ready - Use Execute button to run scripts", false)
+end)
+
+-- Decal Animation (optional)
+local decalImage = Instance.new("ImageLabel", screenGui)
+decalImage.BorderSizePixel = 0
+decalImage.BackgroundTransparency = 1
+decalImage.Image = "rbxassetid://126876652299043"
+decalImage.Size = UDim2.new(0, 100, 0, 100)
+decalImage.Position = UDim2.new(0, -100, 0.5, -50)
+decalImage.Visible = false
+decalImage.ZIndex = 10
+
+injectBtn.MouseButton1Click:Connect(function()
+    decalImage.Visible = true
+    decalImage.Position = UDim2.new(0.5, -50, 0.5, -50)
+    task.wait(0.5)
+    decalImage.Visible = false
+    decalImage.Position = UDim2.new(0, -100, 0.5, -50)
+end)
+
+return screenGui
